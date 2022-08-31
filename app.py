@@ -14,12 +14,14 @@ st.set_page_config(
          'About': "# This is a header. This is an *extremely* cool app!"
      }
  )
+
+st.title("Crowdfeel")
 '''
 # Predict your tweet sentiment
 '''
 
 st.markdown('''
-## Enter the details about your desired ride 🔜
+## Enter the details about your desired tweet 🔜
 ''')
 
 date = st.date_input(' datetime', value=datetime.datetime(2012, 10, 6, 12, 10, 20))
