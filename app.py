@@ -1,18 +1,30 @@
 import streamlit as st
-
 import datetime
 import os
 import requests
 
+st.set_page_config(
+     page_title="Crowdfeel",
+     page_icon="🫶",
+     layout="wide",
+     initial_sidebar_state="expanded",
+     menu_items={
+         'Get Help': 'https://github.com/Alvarodelamaza/crowdfeel-frontend',
+         'Report a bug': "https://github.com/Alvarodelamaza/crowdfeel-frontend",
+         'About': "# This is a header. This is an *extremely* cool app!"
+     }
+ )
 '''
-# crowdfeel front
+# Predict your tweet sentiment
+'''
 
-This front queries the Le Wagon [taxi fare model API]
-(https://taxifare.lewagon.ai/predict?pickup_datetime=2012-10-06%2012:10:20&pickup_longitude=40.7614327&pickup_latitude=-73.9798156&dropoff_longitude=40.6513111&dropoff_latitude=-73.8803331&passenger_count=2)
-'''
+st.markdown('''
+## Enter the details about your desired ride 🔜
+''')
 
 date = st.date_input(' datetime', value=datetime.datetime(2012, 10, 6, 12, 10, 20))
 time = st.time_input(' datetime', value=datetime.datetime(2012, 10, 6, 12, 10, 20))
-datetime = f'{date} {time}'
-longitude = st.number_input('longitude', value=40.7614327)
-latitude = st.number_input(' latitude', value=-73.9798156)
+hashtag = st.text_input(label='Enter #Hashtag')
+location = st.text_input(label='Enter Location')
+handle = st.text_input(label='Enter @Handle')
+freetext = st.text_input(label='Enter Text')
