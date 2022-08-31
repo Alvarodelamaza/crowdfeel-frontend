@@ -1,0 +1,29 @@
+#search {
+  z-index: 1;
+}
+
+.algolia-places {
+  width: auto;
+}
+
+#pickup_datetime {
+  background-color: white;
+}
+
+#fare {
+  bottom: 0px;
+  right: 0px;
+}
+
+#predicted-fare {
+  font-size: 32px;
+  font-weight: bold;
+  color: white;
+}
+
+.mapboxgl-ctrl-geocoder {
+  max-width: none;
+  width: 100%;
+  border: 1px solid lightgrey;
+  box-shadow: none;
+}
