@@ -87,7 +87,7 @@ with st.form("search_form"):
                 ax.pie(emotions,labels=my_labels,colors=colors)
 
                 st.pyplot(fig)
-with st.form("search_form_hastga"):
+with st.form("search_form_hashtag"):
 
     st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
     col1, col2 = st.columns(2)
