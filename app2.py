@@ -38,6 +38,7 @@ with st.form("search_form"):
     col3, col4 = st.columns(2)
     location=col3.text_input(''' City''')
     radius=col4.slider('''Radius (km)''',min_value=1, max_value=50)
+
     submitted = st.form_submit_button("Extract Sentiments from location")
     if submitted:
             st.write("Location:", location, ",radius:", radius)
@@ -103,6 +104,7 @@ with st.form("search_form_hastga"):
             ax.pie(emotions,labels=my_labels,colors=colors)
 
             st.pyplot(fig)
+
 
 
 
