@@ -1,159 +1,210 @@
+from pickletools import read_bytes1
 import streamlit as st
 import datetime
-import os
+#import time
+import requests
 import pandas as pd
 import numpy as np
-import requests
 import pydeck as pdk
-import string
+import matplotlib.pyplot as plt
+import numpy as np
+#import streamlit.components.v1 as components
 
+# Page configuration
 st.set_page_config(
-     page_title="Crowdfeel app",
-     page_icon="twitter",
+     page_title="CrowdFeel",
+     page_icon="👥",
      layout="wide",
      initial_sidebar_state="expanded",
      menu_items={
-         'Get Help': 'https://github.com/tjebbel/crowdfeel',
-         'Report a bug': "https://github.com/tjebbel/crowdfeel",
-         'About': "# This is a header. This is an *extremely* cool app!"
+         'Get Help': 'https://github.com/Alvarodelamaza/crowdfeel',
+         'Report a bug': "https://github.com/Alvarodelamaza/crowdfeel",
+         'About': "## Population sentiment analysis using tweets \n Bootcamp project developed by: \n Alvaro de la Maza, Angelo Darriet, Beauregard Sangkala and Tjebbe Lodeizen"
      }
  )
-'''
-# Predict the mood and sentiment of your tweet in a location
-'''
+# Title and subtitle
+title='👥 Crowdfeel'
+subtitle="The tool to track people's sentiment through Twitter 💬"
+st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;'>{subtitle}</h1>", unsafe_allow_html=True)
+
+# Location Form
+with st.form("search_form location"):
+
+    # Date filter
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
+    date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
+
+    # Location filter
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? 🗺</h1>", unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    location=col3.text_input(''' City''')
+    radius=col4.slider('''Radius (km)''',min_value=1, max_value=50)
+
+    # Submit button
+    col11, col21 , col23,col34, col31 = st.columns(5)
+
+    submitted = col23.form_submit_button("Extract Sentiments from location 🌍")
+    if submitted:
+            # Print search filters
+            st.write("Location:", location, ",radius:", radius)
+            # Call our API
+            url=f'http://127.0.0.1:8000/predictbeta?distance={radius}&location={location}'
+
+           #Loading... spinner
+            with st.spinner('Extracting emotions... 😃😭🤬😳'):
+                res1=requests.get(url).json()
+                print('✅request made')
+                happiness=np.round(res1['happiness'],2)
+                tweet=res1['tweet']
+                labels=res1['label']
+            st.success('Sentiments extracted succesfully!',icon='✅')
+
+            # Set the emojys
+            if happiness >50:
+                emojy='😃'
+            else:
+                emojy='😭'
+
+            #Cahnge color and label depending on prediction
+            label_text=[]
+            color=[]
+            for label in labels:
+                if label==1:
+                    label_text.append('✅ Positive')
+                    color.append('Green')
+                else:
+                    label_text.append('❌ Negative')
+                    color.append('Red')
+
+            #Write the main result
+            f''' ## The level of happiness of **{location}** is {happiness}  {emojy}'''
+
+            col1, col2 = st.columns(2)
+
+            # Column #1 with random tweets and their labels
+            with col1:
+                with st.expander(" See random Tweets"):
+                    for twee , label, color in zip(tweet,label_text,color):
+                        text=f'''{twee} is {label}'''
+                        text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                        st.markdown(text_html, unsafe_allow_html=True)
+
+            #Column #2 with charts
+            with col2:
+
+                #Line timeline chart
+                y=res1['mean_day'].items()
+                st.line_chart(pd.DataFrame(data=y,columns=['Day','Happiness']).set_index('Day'))
+
+                # Pie chart
+                emotions=np.array([happiness,100-happiness])
+                my_labels=['Happy 😃','Sad 😭']
+                colors=['#95CD41','#FA877F']
+                fig, ax = plt.subplots()
+                ax.pie(emotions,labels=my_labels,colors=colors)
+                st.pyplot(fig)
 
 
-st.markdown('''
-## Enter the details about your desired tweet
-''')
+# Search form hashtag
+with st.form("search_form_hashtag"):
 
-date = st.date_input(' datetime', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
-time = st.time_input(' datetime', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
-hashtag = st.text_input(label='Enter #Hashtag')
-location = st.text_input(label='Enter Location')
-handle = st.text_input(label='Enter @Handle')
-freetext = st.text_input(label='Enter Text')
+    # Date filter
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
+    col1, col2 = st.columns(2)
+    date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
+    date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
 
-st.markdown('''
-## This slider allows the user to select a number of tweets
-''')
+    # Hashtag filter
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Hashtag? #️⃣</h1>", unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    hashtag=col3.text_input(''' Hashtag you want to search ''')
 
-tweet_count = st.slider('Select a tweet count', 1, 100, 5)
+    col11, col21 , col23,col34, col31 = st.columns(5)
+    timeline=col23.checkbox('Show timeline', value=False)
+    # Submit button
+    col11, col21 , col23,col34, col31 = st.columns(5)
+    submitted = col23.form_submit_button("Extract Sentiments from hashtag #️⃣ ")
+    if submitted:
 
-st.markdown('''
-## Overall barometer of the mood for your tweet
-''')
-positive = 0.55
-negative = 0.45
-value = (positive / (positive + negative))
-st.progress(value)
+            # Print search filters
+            st.write("Hashtag searched:  ", hashtag)
+
+            # Call our API
+            url=f'http://127.0.0.1:8000/predicthasacc?hashtag={hashtag}'
+
+            #Loading... spinner
+            with st.spinner('Extracting emotions... 😃😭🤬😳'):
+                res=requests.get(url).json()
+                happiness=np.round(res['happiness'],2)
+                tweet=res['tweet']
+                labels=res['label']
+            st.success('Sentiments extracted succesfully!',icon='✅')
+
+            # Set the emojys
+            if happiness >50:
+                emojy='😃'
+            else:
+                emojy='😭'
+
+            #Cahnge color and label depending on prediction
+            label_text=[]
+            color=[]
+            for label in labels:
+                if label==1:
+                    label_text.append('✅ Positive')
+                    color.append('Green')
+                else:
+                    label_text.append('❌ Negative')
+                    color.append('Red')
+
+            #Write the main result
+            f''' ## The emotions of #**{hashtag}** is {happiness}  {emojy}'''
+
+            col1, col2 = st.columns(2)
+
+            # Column #1 with random tweets and their labels
+            with col1:
+                with st.expander(" See random Tweets"):
+                    for twee , label, color in zip(tweet,label_text,color):
+                        text=f'''{twee} is {label}'''
+                        text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                        st.markdown(text_html, unsafe_allow_html=True)
+
+            #Column #2 with charts
+            with col2:
+
+                #Line timeline chart
+                if timeline:
+                    y=res['mean_day'].items()
+                    st.line_chart(pd.DataFrame(data=y,columns=['Day','Happiness']).set_index('Day'))
+
+                # Pie chart
+                emotions=np.array([happiness,100-happiness])
+                my_labels=['Happy 😃','Sad 😭']
+                colors=['#95CD41','#FA877F']
+                plt.figure(figsize=(2, 2))
+                fig, ax = plt.subplots()
+                ax.pie(emotions,labels=my_labels,colors=colors)
+                st.pyplot(fig)
 
 
-st.markdown('''
-## Enter the details to compare the mood of your location 🔜
-''')
-
-col1, col2 = st.columns(2)
-col1.markdown(''' ### Me... 🗺''')
-location = col1.text_input('Location')
-
-col2.markdown('''### You... 📍''')
-destination = col2.text_input('Destination')
-
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Location: Positive tweets", "500", "+25%")
-col2.metric("Location: Negative tweets", "500", "-25%")
-col3.metric("Location: Change # of tweets", "+5%", "-4%")
-col4.metric("Location: Change sentiment", "+5%", "-4%")
 
 
-st.markdown('''
-## Enter the details to compare the mood in radius from your location 🔜
-''')
 
+#url_loc = f"https://maps.googleapis.com/maps/api/geocode/json?address={location.replace(' ','%20')}&key=AIzaSyBZaTwXWRvIM0INaGsrjU2-FvyQ2yCi5Q8"
+#response = requests.get(url_loc)
 
-df = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [52.442039, 4.829199],
-    columns=['lat', 'lon'])
+#de_lat = response.json()['results'][0]['geometry']['location']['lat']
+#de_lng = response.json()['results'][0]['geometry']['location']['lng']
+#url_loc = f"https://maps.googleapis.com/maps/api/geocode/json?address={destination.replace(' ','%20')}&key=AIzaSyBZaTwXWRvIM0INaGsrjU2-FvyQ2yCi5Q8"
+#response_a = requests.get(url_loc)
 
-st.pydeck_chart(pdk.Deck(
-     map_style=None,
-     initial_view_state=pdk.ViewState(
-         latitude=52.442039,
-         longitude= 4.829199,
-         zoom=11,
-         pitch=50,
-     ),
-     layers=[
-         pdk.Layer(
-            'HexagonLayer',
-            data=df,
-            get_position='[lon, lat]',
-            radius=200,
-            elevation_scale=4,
-            elevation_range=[0, 1000],
-            pickable=True,
-            extruded=True,
-            coverage=1
-         ),
-         pdk.Layer(
-             'ScatterplotLayer',
-             data=df,
-             get_position='[lon, lat]',
-             get_color='[200, 30, 0, 160]',
-             get_radius=200,
-         ),
-     ],
- ))
-
-st.markdown('''
-## Enter the details to compare the mood of your destination 🔜
-''')
-
-col1, col2, col3, col4 = st.columns(4)
-col1.metric("Destination: Positive tweets", "500", "+25%")
-col2.metric("Destination: Negative tweets", "500", "-25%")
-col3.metric("Destination: Change # of tweets", "+5%", "-4%")
-col4.metric("Destination: Change sentiment", "+5%", "-4%")
-
-st.markdown('''
-## Enter the details to compare the mood in your destination 🔜
-''')
-
-df = pd.DataFrame(
-    np.random.randn(1000, 2) / [50, 50] + [51.92442, 4.47773],
-    columns=['lat', 'lon'])
-
-st.pydeck_chart(pdk.Deck(
-     map_style=None,
-     initial_view_state=pdk.ViewState(
-         latitude=51.92442,
-         longitude= 4.47773,
-         zoom=11,
-         pitch=50,
-     ),
-     layers=[
-         pdk.Layer(
-            'HexagonLayer',
-            data=df,
-            get_position='[lon, lat]',
-            radius=200,
-            elevation_scale=4,
-            elevation_range=[0, 1000],
-            pickable=True,
-            extruded=True,
-            coverage=1
-         ),
-         pdk.Layer(
-             'ScatterplotLayer',
-             data=df,
-             get_position='[lon, lat]',
-             get_color='[200, 30, 0, 160]',
-             get_radius=200,
-         ),
-     ],
- ))
-
-st.markdown('''
-## Enter the details to compare sentiment on tweets
-''')
+#dr_lat = response_a.json()['results'][0]['geometry']['location']['lat']
+#dr_lng = response_a.json()['results'][0]['geometry']['location']['lng']
+#pk_ad=response.json()['results'][0]["formatted_address"]
+#dr_ad=response_a.json()['results'][0]["formatted_address"]
+#col1.write(pk_ad)
+#col2.write(dr_ad)
