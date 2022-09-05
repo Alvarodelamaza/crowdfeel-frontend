@@ -22,6 +22,7 @@ st.set_page_config(
          'About': "## Population sentiment analysis using tweets \n Bootcamp project developed by: \n Alvaro de la Maza, Angelo Darriet, Beauregard Sangkala and Tjebbe Lodeizen"
      }
  )
+
 # Title and subtitle
 title='👥 Crowdfeel'
 subtitle="The tool to track people's sentiment through Twitter 💬"
@@ -88,7 +89,7 @@ with st.form("search_form location"):
             with col1:
                 with st.expander(" See random Tweets"):
                     for twee , label, color in zip(tweet,label_text,color):
-                        text=f'''{twee} is {label}'''
+                        text=f'''{twee} is {label}'''.replace("\n","")
                         text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
@@ -168,7 +169,7 @@ with st.form("search_form_hashtag"):
             with col1:
                 with st.expander(" See random Tweets"):
                     for twee , label, color in zip(tweet,label_text,color):
-                        text=f'''{twee} is {label}'''
+                        text=f'''{twee} is {label}'''.replace("\n","")
                         text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
