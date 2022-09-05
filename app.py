@@ -22,6 +22,7 @@ st.set_page_config(
          'About': "## Population sentiment analysis using tweets \n Bootcamp project developed by: \n Alvaro de la Maza, Angelo Darriet, Beauregard Sangkala and Tjebbe Lodeizen"
      }
  )
+
 # Title and subtitle
 title='👥 Crowdfeel'
 subtitle="The tool to track people's sentiment through Twitter 💬"
