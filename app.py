@@ -69,7 +69,7 @@ with st.form("search_form location"):
             else:
                 emojy='😭'
 
-            #Cahnge color and label depending on prediction
+            #Change color and label depending on prediction
             label_text=[]
             color=[]
             for label in labels:
@@ -143,13 +143,13 @@ with st.form("search_form_hashtag"):
                 labels=res['label']
             st.success('Sentiments extracted succesfully!',icon='✅')
 
-            # Set the emojys
+            # Set the emojis
             if happiness >50:
                 emojy='😃'
             else:
                 emojy='😭'
 
-            #Cahnge color and label depending on prediction
+            #Change color and label depending on prediction
             label_text=[]
             color=[]
             for label in labels:
