@@ -81,7 +81,7 @@ with st.form("search_form location"):
                     color.append('Red')
 
             #Write the main result
-            f''' ## The level of happiness of **{location}** is {happiness} % {emojy}'''
+            f''' ## The level of happiness of **{location}** is {happiness}  {emojy}'''
 
             col1, col2 = st.columns(2)
 
@@ -161,7 +161,7 @@ with st.form("search_form_hashtag"):
                     color.append('Red')
 
             #Write the main result
-            f''' ## The level of happiness of **{location}** is {happiness} % {emojy}'''
+            f''' ## The relative emotion for #**{hashtag}** is {happiness}%  {emojy}'''
 
             col1, col2 = st.columns(2)
 
