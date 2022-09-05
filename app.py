@@ -51,7 +51,7 @@ with st.form("search_form location"):
             # Print search filters
             st.write("Location:", location, ",radius:", radius)
             # Call our API
-            url=f'http://127.0.0.1:8000/predictbeta?distance={radius}&location={location}'
+            url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictbeta?distance={radius}&location={location}'
 
            #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
@@ -133,8 +133,7 @@ with st.form("search_form_hashtag"):
             st.write("Hashtag searched:  ", hashtag)
 
             # Call our API
-            url=f'http://127.0.0.1:8000/predicthasacc?hashtag={hashtag}'
-
+            url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predicthasacc?hashtag={hashtag}'
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
                 res=requests.get(url).json()
