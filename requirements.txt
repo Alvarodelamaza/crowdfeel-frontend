@@ -1,2 +1,8 @@
 streamlit
 matplotlib
+pandas
+numpy
+datetime
+pydeck
+requests
+re
