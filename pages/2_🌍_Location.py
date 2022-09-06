@@ -124,7 +124,7 @@ with st.form("search_form location"):
                 # Pie chart
                 emotions=np.array([happiness,100-happiness])
                 my_labels=['Happy 😃','Sad 😭']
-                colors=['#95CD41','#FA877F']
+                colors=['#AAF683','#F74052']
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
