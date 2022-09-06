@@ -24,7 +24,7 @@ streamlit:
 	-@streamlit run app.py
 
 streamlit2:
-	-@streamlit run app2.py
+	-@streamlit run Crowdfeel.py
 
 heroku_login:
 	-@heroku login
