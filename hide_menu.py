@@ -1,3 +1,5 @@
+import streamlit as st
+
 st.markdown(""" <style>
 #MainMenu {visibility: hidden;}
 footer {visibility: hidden;}
