@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 #import streamlit.components.v1 as components
 
+
 # Page configuration
 st.set_page_config(
      page_title="CrowdFeel",
@@ -28,6 +29,12 @@ title='👥 Crowdfeel 👥'
 subtitle="The tool to track people's sentiment through Twitter 💬"
 st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;'>{subtitle}</h1>", unsafe_allow_html=True)
+
+# Mood of the population
+form = st.form(key='Twitter')
+form.text_input(label='Enter a Twitter username')
+submit_button = form.form_submit_button(label='Submit')
+# Return top five tweets
 
 # Location Form
 with st.form("search_form location"):
@@ -189,8 +196,6 @@ with st.form("search_form_hashtag"):
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
-
-
 
 
 
