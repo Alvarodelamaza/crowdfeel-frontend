@@ -24,31 +24,27 @@ st.set_page_config(
  )
 
 # Title and subtitle
-title='👥 Crowdfeel 👥'
+#title='👥 Crowdfeel 👥'
+st.image('Logo2.png')
+
 subtitle="The tool to track people's sentiment 💬"
-st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;'>{subtitle}</h1>", unsafe_allow_html=True)
+#st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px; color:#662E9B;'>{subtitle}</h1>", unsafe_allow_html=True)
 
 
 col1, col2, col3 = st.columns(3)
+link = 'http://localhost:8501/Username'
+lin2="window.location.href='https://www.w3docs.com';"
+user_but=st.button('Username')
+if user_but:
+    st.experimental_set_query_params(
 
-with col1:
-    st.write(' ')
-
+     '/Username'
+ )
 with col2:
    st.image('twitter.png')
 
-with col3:
-    st.write(' ')
-
-
 col4, col5, col6 = st.columns(3)
-
-with col4:
-    st.write(' ')
 
 with col5:
    st.image('lewagon.png')
-
-with col6:
-    st.write(' ')

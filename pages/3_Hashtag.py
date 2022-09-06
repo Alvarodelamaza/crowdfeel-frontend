@@ -24,25 +24,45 @@ st.set_page_config(
      }
  )
 
+#Palette picture
+st.image('palette_header.png')
+
+#Blank space
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+
 # Title and subtitle
-title='👥 Crowdfeel 👥'
+title='Search by #hashtag '
 subtitle="The tool to track the sentiment for a hashtag 💬"
-st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;'>{subtitle}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 60px;color :#0B0500;'>{title}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle}</h1>", unsafe_allow_html=True)
 
-
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
 # Search form hashtag
 with st.form("search_form_hashtag"):
 
     # Date filter
-    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
-    date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
+    #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
+    #col1, col2 = st.columns(2)
+    #date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
+    #date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
 
     # Hashtag filter
-    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Hashtag? #️⃣</h1>", unsafe_allow_html=True)
-    col3, col4 = st.columns(2)
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>What? #️⃣</h1>", unsafe_allow_html=True)
+    col1,col3, col4 = st.columns(3)
     hashtag=col3.text_input(''' Hashtag you want to search ''')
 
     col11, col21 , col23,col34, col31 = st.columns(5)
@@ -111,3 +131,16 @@ with st.form("search_form_hashtag"):
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
+
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+
+st.image('palette_header.png')

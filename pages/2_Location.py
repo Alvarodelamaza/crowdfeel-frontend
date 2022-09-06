@@ -12,7 +12,7 @@ import numpy as np
 
 # Page configuration
 st.set_page_config(
-     page_title="CrowdFeel",
+     page_title="CrowdFeel by Location",
      page_icon="👥",
      layout="wide",
      initial_sidebar_state="expanded",
@@ -22,21 +22,42 @@ st.set_page_config(
          'About': "## Population sentiment analysis using tweets \n Bootcamp project developed by: \n Alvaro de la Maza, Angelo Darriet, Beauregard Sangkala and Tjebbe Lodeizen"
      }
  )
+#Palette picture
+st.image('palette_header.png')
 
+#Blank space
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
 # Title and subtitle
-title='👥 Crowdfeel 👥'
+title='Search by 📍location'
 subtitle="The tool to track the sentiment in a location through Twitter 💬"
-st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;'>{subtitle}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 60px;color:#0B0500;'>{title}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color:#0B0500;'>{subtitle}</h1>", unsafe_allow_html=True)
 
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
 # Location Form
 with st.form("search_form location"):
 
     # Date filter
-    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
-    col1, col2 = st.columns(2)
-    date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
-    date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
+    #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
+    #col1, col2 = st.columns(2)
+    #date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
+    #date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
 
     # Location filter
     st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? 🗺</h1>", unsafe_allow_html=True)
@@ -107,3 +128,16 @@ with st.form("search_form location"):
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
+
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+
+st.image('palette_header.png')
