@@ -1,3 +1,4 @@
+
 from pickletools import read_bytes1
 import streamlit as st
 import datetime
@@ -8,8 +9,10 @@ import numpy as np
 import pydeck as pdk
 import matplotlib.pyplot as plt
 import numpy as np
+import altair as alt
 #import streamlit.components.v1 as components
 
+import plotly.express as px
 
 # Page configuration
 st.set_page_config(
@@ -65,39 +68,42 @@ with st.form("search_form_emotions"):
                 emotion=res['label']
             st.success('Emotions extracted succesfully!',icon='✅')
 
+            emojy = []
+            word = []
+            for twee in tweet:
             # Set the emojis
-            if emotion=='0':
-                emojy='😃'
-            elif emotion== '1':
-                emojy= '🤬'
-            elif emotion=='2':
-                emojy='😍'
-            elif emotion=='3':
-                emojy='😐'
-            elif emotion=='4':
-                emojy='😭'
-            elif emotion=='5':
-                emojy='😲'
-            else:
-                emojy='😱'
+                if emotion=='0':
+                    emojy.append('😃')
+                    word.append('Happy')
+                elif emotion== '1':
+                    emojy.append('🤬')
+                    word.append('Hate')
+                elif emotion=='2':
+                    emojy.append('😍')
+                    word.append('Love')
+                elif emotion=='3':
+                    emojy.append('😐')
+                    word.append('Neutral')
+                elif emotion=='4':
+                    emojy.append('😭')
+                    word.append('Sad')
+                elif emotion=='5':
+                    emojy.append('😲')
+                    word.append('Surprise')
+                else:
+                    emojy.append('😱')
+                    word.append('Worry')
 
             col1, col2 = st.columns(2)
 
             # Column #1 with random tweets and their labels
             with col1:
                 with st.expander(" See random Tweets"):
-                    for twee , label in zip(tweet,emotion):
-                        text=f'''{twee} is {label}'''.replace("\n","")
+                    for twee, emotion, labels in zip(tweet,emojy, word):
+                        text=f'''{twee} is {labels}'''.replace("\n","")
                         text_html = f'<p style="font-family:sans-serif; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
             #Column #2 with charts
             with col2:
-
-                # Pie chart
-                my_labels=['happiness','hate','love','neutral','sadness','surprise','worry']
-                colors=['#95CD41','#FA877F','#95CD41','#FA877F','#95CD41','#FA877F','#95CD41']
-                plt.figure(figsize=(2, 2))
-                fig, ax = plt.subplots()
-                ax.pie(emotion,labels=my_labels,colors=colors)
-                st.pyplot(fig)
+                st.bar_chart(data=emotion)
