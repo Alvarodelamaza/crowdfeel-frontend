@@ -26,31 +26,25 @@ st.set_page_config(
 st.image('banner.png')
 
 
+
 #Blank space
 c=st.empty()
 c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
+
 # Title and subtitle
-title='Search by 📍location'
-subtitle="The tool to track the sentiment in a location through Twitter 💬"
-st.markdown(f"<h1 style='text-align: center;font-size: 60px;color:#0B0500;'>{title}</h1>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;color:#0B0500;'>{subtitle}</h1>", unsafe_allow_html=True)
+title='Search by market segment '
+subtitle="The tool to extract sentiments from a location and a given radius 🌍"
+subtitle_1="Extract sentiments...    ✅ vs. ❌"
+subtitle_2="Extract emotions like: "
+subtitle_3="😃 Happiness, 🤬 Hate, 😍 Love, 😐 Neutrality, 😭 Sadness, 😲 Surprise or 😱 Worry "
+st.markdown(f"<h1 style='text-align: center;font-size: 60px;color :#0B0500;'>{title}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle}</h1>", unsafe_allow_html=True)
 
 c=st.empty()
 c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
+# Search form hashtag
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_1}</h1>", unsafe_allow_html=True)
+
 # Location Form
 with st.form("search_form_location"):
 
@@ -135,15 +129,19 @@ with st.form("search_form_location"):
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
+
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
+
 with st.form("search_form_emotions_location"):
-    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? #️⃣</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? 🗺</h1>", unsafe_allow_html=True)
     col3, col4 = st.columns(2)
     location=col3.text_input(''' City''')
     radius=col4.slider('''Radius (km)''',min_value=1, max_value=50)
 
     # Submit button
     col11, col21 , col23,col34, col31 = st.columns(5)
-    submitted = col23.form_submit_button("Extract emotions from location #️⃣ ")
+    submitted = col23.form_submit_button("Extract emotions from location 🌍 ")
     if submitted:
 
             # Print search filters
