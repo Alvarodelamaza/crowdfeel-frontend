@@ -103,7 +103,7 @@ with st.form("search_form_hashtag"):
                     color.append('Red')
 
             #Write the main result
-            f''' ## The happiness for #**{hashtag}** is {happiness}%  {emojy}'''
+            f''' ## The relative emotion for #**{hashtag}** is {happiness}%  {emojy}'''
 
             col1, col2 = st.columns(2)
 
@@ -126,7 +126,7 @@ with st.form("search_form_hashtag"):
                 # Pie chart
                 emotions=np.array([happiness,100-happiness])
                 my_labels=['Happy 😃','Sad 😭']
-                colors=['#AAF683','#F74052']
+                colors=['#95CD41','#FA877F']
                 plt.figure(figsize=(2, 2))
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
