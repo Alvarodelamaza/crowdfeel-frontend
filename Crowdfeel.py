@@ -30,9 +30,3 @@ st.image('Logo3.png')
 subtitle="The tool to track people's sentiment 💬"
 #st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
 st.markdown(f"<h1 style='text-align: center;font-size: 35px; color:#662E9B;'>{subtitle}</h1>", unsafe_allow_html=True)
-
-
-col1, col2, col3 = st.columns(3)
-
-with col2:
-   st.image('twitter.png')
