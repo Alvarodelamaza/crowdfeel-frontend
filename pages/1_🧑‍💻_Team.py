@@ -39,12 +39,17 @@ col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown('👷‍♂️' 'Alvaro de la Maza, Chief Technology Officer')
+    st.image('alvaro.png')
 with col2:
     st.markdown('👨‍🚒' 'Angelo Darriet, Chief Operational Officer')
+    st.image('angelo.png')
 with col3:
     st.markdown('👨‍🏭' 'Beau Sangkala, Chief Marketing Officer')
+    st.image('beau.png')
+
 with col4:
     st.markdown('🕵️‍♂️' 'Tjebbe Lodeizen, Chief Financial Officer')
+    st.image('tjebbe.png')
 
 
 col5, col6, col7 = st.columns(3)
