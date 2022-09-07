@@ -147,6 +147,7 @@ with st.form("search_form_emotions_location"):
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionsloc?distance={radius}&location={location}'
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
+                failing=True
                 while failing:
                     try:
                         res=requests.get(url).json()
