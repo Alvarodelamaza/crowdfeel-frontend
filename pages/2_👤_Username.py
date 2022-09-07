@@ -189,10 +189,6 @@ with st.form("search_form_emotions_username"):
             st.pyplot(fig)
 
 
-
-
-
-
 c=st.empty()
 c.write(' ')
 c=st.empty()
