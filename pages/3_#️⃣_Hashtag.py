@@ -13,7 +13,7 @@ import numpy as np
 # Page configuration
 st.set_page_config(
      page_title="CrowdFeel",
-     page_icon="👥",
+     page_icon="favicon2.png",
      layout="wide",
      initial_sidebar_state="expanded",
      menu_items={
