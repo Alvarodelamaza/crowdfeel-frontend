@@ -23,7 +23,7 @@ install_requirements:
 
 
 streamlit:
-	-@streamlit run Crowdfeel.py
+	-@streamlit run 🏠_Crowdfeel.py
 
 heroku_login:
 	-@heroku login
