@@ -12,7 +12,7 @@ import numpy as np
 
 # Page configuration
 st.set_page_config(
-     page_title="CrowdFeel by Username",
+     page_title="CrowdFeel by Location",
      page_icon="👥",
      layout="wide",
      initial_sidebar_state="expanded",
@@ -36,10 +36,9 @@ c=st.empty()
 c.write(' ')
 c=st.empty()
 c.write(' ')
-
 # Title and subtitle
-title=' Search by ＠Username '
-subtitle="Track someone's emotions through tweets 💬"
+title='Search by 📍location'
+subtitle="The tool to track the sentiment in a location through Twitter 💬"
 st.markdown(f"<h1 style='text-align: center;font-size: 60px;color:#0B0500;'>{title}</h1>", unsafe_allow_html=True)
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;color:#0B0500;'>{subtitle}</h1>", unsafe_allow_html=True)
 
@@ -49,8 +48,10 @@ c=st.empty()
 c.write(' ')
 c=st.empty()
 c.write(' ')
+c=st.empty()
+c.write(' ')
 # Location Form
-with st.form("search_form username"):
+with st.form("search_form location"):
 
     # Date filter
     #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
@@ -59,19 +60,20 @@ with st.form("search_form username"):
     #date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
 
     # Location filter
-    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Who? 🕵🏻‍♂️</h1>", unsafe_allow_html=True)
-    col2,col3, col4 = st.columns(3)
-    username=col3.text_input(''' Username''')
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? 🗺</h1>", unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    location=col3.text_input(''' City''')
+    radius=col4.slider('''Radius (km)''',min_value=1, max_value=50)
 
     # Submit button
     col11, col21 , col23,col34, col31 = st.columns(5)
 
-    submitted = col23.form_submit_button("Extract Sentiments from Twitter user ＠")
+    submitted = col23.form_submit_button("Extract Sentiments from location 🌍")
     if submitted:
             # Print search filters
-            st.write("Username:", username)
+            st.write("Location:", location, ",radius:", radius)
             # Call our API
-            url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictbeta?username={username}'
+            url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictbeta?distance={radius}&location={location}'
 
            #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
@@ -100,7 +102,7 @@ with st.form("search_form username"):
                     color.append('Red')
 
             #Write the main result
-            f''' ## The level of happiness for **{username}** is {happiness}%  {emojy}'''
+            f''' ## The level of happiness in **{location}** is {happiness}%  {emojy}'''
 
             col1, col2 = st.columns(2)
 
@@ -122,11 +124,11 @@ with st.form("search_form username"):
                 # Pie chart
                 emotions=np.array([happiness,100-happiness])
                 my_labels=['Happy 😃','Sad 😭']
-
-                colors=['#AAF683','#F74052']
+                colors=['#95CD41','#FA877F']
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
+
 c=st.empty()
 c.write(' ')
 c=st.empty()

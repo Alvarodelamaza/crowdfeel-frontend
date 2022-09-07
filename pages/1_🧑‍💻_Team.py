@@ -1,3 +1,4 @@
+
 from pickletools import read_bytes1
 import streamlit as st
 import datetime
@@ -8,7 +9,10 @@ import numpy as np
 import pydeck as pdk
 import matplotlib.pyplot as plt
 import numpy as np
+import altair as alt
 #import streamlit.components.v1 as components
+
+import plotly.express as px
 
 # Page configuration
 st.set_page_config(
@@ -24,17 +28,25 @@ st.set_page_config(
  )
 
 # Title and subtitle
-#title='👥 Crowdfeel 👥'
-st.image('Logo2.png')
-
-subtitle="The tool to track people's sentiment 💬"
-#st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;font-size: 35px; color:#662E9B;'>{subtitle}</h1>", unsafe_allow_html=True)
+title='👥 Meet the team 👥'
+subtitle="The people that have created the tool 💬"
+st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;'>{subtitle}</h1>", unsafe_allow_html=True)
 
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
+with col1:
+    st.markdown('👷‍♂️' 'Alvaro de la Maza, Chief Technology Officer')
 with col2:
-   st.image('twitter.png')
+    st.markdown('👨‍🚒' 'Angelo Darriet, Chief Operational Officer')
+with col3:
+    st.markdown('👨‍🏭' 'Beau Sangkala, Chief Marketing Officer')
+with col4:
+    st.markdown('🕵️‍♂️' 'Tjebbe Lodeizen, Chief Financial Officer')
 
 
+col5, col6, col7 = st.columns(3)
+
+with col6:
+   st.image('lewagon.png')
