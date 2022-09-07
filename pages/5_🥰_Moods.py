@@ -27,7 +27,7 @@ st.set_page_config(
      }
  )
 #Header
-st.image('palette_header.png')
+st.image('banner.png')
 
 #Blank space
 c=st.empty()
@@ -85,62 +85,51 @@ with st.form("search_form_emotions"):
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
                 res=requests.get(url).json()
                 print(res)
+                emotions_totaldf=pd.DataFrame(np.array(res['emotions']))
                 tweet=res['tweet']
-                emotions=res['label']
+                emotionsdf=pd.DataFrame(np.array(res['label']))
             st.success('Emotions extracted succesfully!',icon='✅')
 
-            emojy = []
-            word = []
-            for emotion in emotions:
-            # Set the emojis
-                if emotion==0:
-                    emojy.append('😃')
-                    word.append('Happiness')
-                elif emotion== 1:
-                    emojy.append('🤬')
-                    word.append('Hate')
-                elif emotion==2:
-                    emojy.append('😍')
-                    word.append('Love')
-                elif emotion==3:
-                    emojy.append('😐')
-                    word.append('Neutral')
-                elif emotion==4:
-                    emojy.append('😭')
-                    word.append('Sadness')
-                elif emotion==5:
-                    emojy.append('😲')
-                    word.append('Surprise')
-                elif emotion==6:
-                    emojy.append('😱')
-                    word.append('Worry')
+            emotions=np.array(emotionsdf[0].map({0.0:'Happiness 😃',1.0:'Hate 🤬',2.0:'Love 😍',3.0:'Neutral 😐',4.0:'Sadness 😭',5.0:'Surprise 😲',6.0:'Worry 😱'}))
+            emotions_total=np.array(emotions_totaldf[0].map({0.0:'Happiness',1.0:'Hate',2.0:'Love',3.0:'Neutral',4.0:'Sadness',5.0:'Surprise',6.0:'Worry'}))
 
             col1, col2 = st.columns(2)
 
             # Column #1 with random tweets and their labels
-            with col1:
-                with st.expander(" See random Tweets"):
-                    for twee, emotion, labels in zip(tweet,emojy, word):
-                        text=f'''{twee} implies {labels} {emotion}'''.replace("\n","")
-                        text_html = f'<p style="font-family:sans-serif; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
-                        st.markdown(text_html, unsafe_allow_html=True)
+
+            with st.expander(" See random Tweets"):
+                for twee, emotion in zip(tweet,emotions):
+                    text=f'''{twee} implies {emotion}'''.replace("\n","")
+                    text_html = f'<p style="font-family:sans-serif; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
+                    st.markdown(text_html, unsafe_allow_html=True)
 
             #Column #2 with charts
-            with col2:
-                sentence_dictionary = {}
-                word_counts = 0
-                for item in word:
-                    if item in sentence_dictionary:
-                        sentence_dictionary[item][0] += 1
-                    else:
-                        sentence_dictionary[item] = [1]
-                print(len(word))
-                print(word)
-                print(sentence_dictionary)
-                word_df=pd.DataFrame(sentence_dictionary)
-                # Bar chart
-                sns.set(font_scale=2)
-                colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
-                fig = plt.figure(figsize=(10, 4))
-                sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
-                st.pyplot(fig)
+
+            sentence_dictionary = {}
+            word_counts = 0
+            for item in emotions_total:
+                if item in sentence_dictionary:
+                    sentence_dictionary[item][0] += 1
+                else:
+                    sentence_dictionary[item] = [1]
+            print(sentence_dictionary)
+            word_df=pd.DataFrame(sentence_dictionary)
+            # Bar chart
+            sns.set(font_scale=1.3)
+            colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
+            fig = plt.figure(figsize=(10, 4))
+            sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
+            st.pyplot(fig)
+
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+c=st.empty()
+c.write(' ')
+
+st.image('palette_header.png')

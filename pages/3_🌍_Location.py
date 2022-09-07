@@ -5,7 +5,7 @@ import datetime
 import requests
 import pandas as pd
 import numpy as np
-import pydeck as pdk
+import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 #import streamlit.components.v1 as components
@@ -15,7 +15,7 @@ st.set_page_config(
      page_title="CrowdFeel by Location",
      page_icon="👥",
      layout="wide",
-     initial_sidebar_state="expanded",
+     initial_sidebar_state="collapsed",
      menu_items={
          'Get Help': 'https://github.com/Alvarodelamaza/crowdfeel',
          'Report a bug': "https://github.com/Alvarodelamaza/crowdfeel",
@@ -23,7 +23,8 @@ st.set_page_config(
      }
  )
 #Palette picture
-st.image('palette_header.png')
+st.image('banner.png')
+
 
 #Blank space
 c=st.empty()
@@ -51,7 +52,7 @@ c.write(' ')
 c=st.empty()
 c.write(' ')
 # Location Form
-with st.form("search_form location"):
+with st.form("search_form_location"):
 
     # Date filter
     #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
@@ -128,6 +129,61 @@ with st.form("search_form location"):
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
+with st.form("search_form_emotions_location"):
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? #️⃣</h1>", unsafe_allow_html=True)
+    col3, col4 = st.columns(2)
+    location=col3.text_input(''' City''')
+    radius=col4.slider('''Radius (km)''',min_value=1, max_value=50)
+
+    # Submit button
+    col11, col21 , col23,col34, col31 = st.columns(5)
+    submitted = col23.form_submit_button("Extract emotions from location #️⃣ ")
+    if submitted:
+
+            # Print search filters
+            st.write("City searched:  ", location)
+
+            # Call our API
+            url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionsloc?distance={radius}&location={location}'
+            #Loading... spinner
+            with st.spinner('Extracting emotions... 😃😭🤬😳'):
+                res=requests.get(url).json()
+                print(res)
+                emotions_totaldf=pd.DataFrame(np.array(res['emotions']))
+                tweet=res['tweet']
+                emotionsdf=pd.DataFrame(np.array(res['label']))
+            st.success('Emotions extracted succesfully!',icon='✅')
+
+            emotions=np.array(emotionsdf[0].map({0.0:'Happiness 😃',1.0:'Hate 🤬',2.0:'Love 😍',3.0:'Neutral 😐',4.0:'Sadness 😭',5.0:'Surprise 😲',6.0:'Worry 😱'}))
+            emotions_total=np.array(emotions_totaldf[0].map({0.0:'Happiness',1.0:'Hate',2.0:'Love',3.0:'Neutral',4.0:'Sadness',5.0:'Surprise',6.0:'Worry'}))
+
+            col1, col2 = st.columns(2)
+
+            # Column #1 with random tweets and their labels
+
+            with st.expander(" See random Tweets"):
+                for twee, emotion in zip(tweet,emotions):
+                    text=f'''{twee} implies {emotion}'''.replace("\n","")
+                    text_html = f'<p style="font-family:sans-serif; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
+                    st.markdown(text_html, unsafe_allow_html=True)
+
+            #Column #2 with charts
+
+            sentence_dictionary = {}
+            word_counts = 0
+            for item in emotions_total:
+                if item in sentence_dictionary:
+                    sentence_dictionary[item][0] += 1
+                else:
+                    sentence_dictionary[item] = [1]
+            print(sentence_dictionary)
+            word_df=pd.DataFrame(sentence_dictionary)
+            # Bar chart
+            sns.set(font_scale=1.3)
+            colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
+            fig = plt.figure(figsize=(10, 4))
+            sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
+            st.pyplot(fig)
 
 c=st.empty()
 c.write(' ')

@@ -16,16 +16,17 @@ import plotly.express as px
 
 # Page configuration
 st.set_page_config(
-     page_title="CrowdFeel",
+     page_title="Team CrowdFeel",
      page_icon="👥",
      layout="wide",
-     initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
      menu_items={
          'Get Help': 'https://github.com/Alvarodelamaza/crowdfeel',
          'Report a bug': "https://github.com/Alvarodelamaza/crowdfeel",
          'About': "## Population sentiment analysis using tweets \n Bootcamp project developed by: \n Alvaro de la Maza, Angelo Darriet, Beauregard Sangkala and Tjebbe Lodeizen"
      }
  )
+st.image('banner.png')
 
 # Title and subtitle
 title='👥 Meet the team 👥'
