@@ -77,62 +77,63 @@ with st.form("search_form_sentiments_hashtag"):
             # Call our API
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predicthas?hashtag={hashtag}'
             #Loading... spinner
-            with st.spinner('Extracting sentimentss.. 😃😭🤬😳'):
-                try:
+            try:
+                with st.spinner('Extracting sentimentss.. 😃😭🤬😳'):
                     res=requests.get(url).json()
-                except:
-                    st.warning('Sorry try it later', icon="⚠️")
-                happiness=np.round(res['happiness'],2)
-                tweet=res['tweet']
-                labels=res['label']
-            st.success('Sentiments extracted succesfully!',icon='✅')
+                    happiness=np.round(res['happiness'],2)
+                    tweet=res['tweet']
+                    labels=res['label']
+                st.success('Sentiments extracted succesfully!',icon='✅')
 
-            # Set the emojis
-            if happiness >50:
-                emojy='😃'
-            else:
-                emojy='😭'
-
-            #Change color and label depending on prediction
-            label_text=[]
-            color=[]
-            for label in labels:
-                if label==1:
-                    label_text.append('✅ Positive')
-                    color.append('Green')
+                # Set the emojis
+                if happiness >50:
+                    emojy='😃'
                 else:
-                    label_text.append('❌ Negative')
-                    color.append('Red')
+                    emojy='😭'
 
-            #Write the main result
-            f''' ## The happiness for #**{hashtag}** is {happiness}%  {emojy}'''
+                #Change color and label depending on prediction
+                label_text=[]
+                color=[]
+                for label in labels:
+                    if label==1:
+                        label_text.append('✅ Positive')
+                        color.append('Green')
+                    else:
+                        label_text.append('❌ Negative')
+                        color.append('Red')
 
-            col1, col2 = st.columns(2)
+                #Write the main result
+                f''' ## The happiness for #**{hashtag}** is {happiness}%  {emojy}'''
 
-            # Column #1 with random tweets and their labels
-            with col1:
-                with st.expander(" See random Tweets"):
-                    for twee , label, color in zip(tweet,label_text,color):
-                        text=f'''{twee} is {label}'''.replace("\n","")
-                        text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
-                        st.markdown(text_html, unsafe_allow_html=True)
+                col1, col2 = st.columns(2)
 
-            #Column #2 with charts
-            with col2:
+                # Column #1 with random tweets and their labels
+                with col1:
+                    with st.expander(" See random Tweets"):
+                        for twee , label, color in zip(tweet,label_text,color):
+                            text=f'''{twee} is {label}'''.replace("\n","")
+                            text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                            st.markdown(text_html, unsafe_allow_html=True)
 
-                #Line timeline chart
-                # if timeline:
-                #     y=res['mean_day'].items()
-                #     st.line_chart(pd.DataFrame(data=y,columns=['Day','Happiness']).set_index('Day'))
+                #Column #2 with charts
+                with col2:
 
-                # Pie chart
-                emotions=np.array([happiness,100-happiness])
-                my_labels=['Happy 😃','Sad 😭']
-                colors=['#AAF683','#F74052']
-                plt.figure(figsize=(2, 2))
-                fig, ax = plt.subplots()
-                ax.pie(emotions,labels=my_labels,colors=colors)
-                st.pyplot(fig)
+                    #Line timeline chart
+                    # if timeline:
+                    #     y=res['mean_day'].items()
+                    #     st.line_chart(pd.DataFrame(data=y,columns=['Day','Happiness']).set_index('Day'))
+
+                    # Pie chart
+                    emotions=np.array([happiness,100-happiness])
+                    my_labels=['Happy 😃','Sad 😭']
+                    colors=['#AAF683','#F74052']
+                    plt.figure(figsize=(2, 2))
+                    fig, ax = plt.subplots()
+                    ax.pie(emotions,labels=my_labels,colors=colors)
+                    st.pyplot(fig)
+            except:
+                st.warning('Sorry, try it later', icon="⚠️")
+
 
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
