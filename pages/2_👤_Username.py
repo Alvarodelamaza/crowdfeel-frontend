@@ -75,7 +75,13 @@ with st.form("search_form username"):
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictacc?account={username}'
            #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
-                res1=requests.get(url).json()
+                failing=True
+                while failing:
+                    try:
+                        res1=requests.get(url).json()
+                        failing=False
+                    except:
+                        pass
                 print('✅request made')
                 happiness=np.round(res1['happiness' ],2)
                 tweet=res1['tweet']
@@ -150,8 +156,14 @@ with st.form("search_form_emotions_username"):
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionsacc?account={username}'
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
-                res=requests.get(url).json()
-                print(res)
+                failing=True
+                while failing:
+                    try:
+                        res=requests.get(url).json()
+                        failing=False
+                    except:
+                        pass
+
                 emotions_totaldf=pd.DataFrame(np.array(res['emotions']))
                 tweet=res['tweet']
                 emotionsdf=pd.DataFrame(np.array(res['label']))

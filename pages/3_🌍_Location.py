@@ -78,7 +78,13 @@ with st.form("search_form_location"):
 
            #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
-                res1=requests.get(url).json()
+                failing=True
+                while failing:
+                    try:
+                        res1=requests.get(url).json()
+                        failing=False
+                    except:
+                        pass
                 print('✅request made')
                 happiness=np.round(res1['happiness'],2)
                 tweet=res1['tweet']
