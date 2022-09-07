@@ -29,8 +29,6 @@ st.image('Logo3.png')
 
 c=st.empty()
 c.write(' ')
-c=st.empty()
-c.write(' ')
 
 subtitle="The tool to track people's sentiment 💬"
 #st.markdown(f"<h1 style='text-align: center;font-size: 60px;'>{title}</h1>", unsafe_allow_html=True)
@@ -38,22 +36,13 @@ st.markdown(f"<h1 style='text-align: center;font-size: 35px; color:#0B0500;'>{su
 subtitle2="About the tool 🔧 "
 c=st.empty()
 c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
 
 st.markdown(f"<h1 style='text-align: center;font-size: 45px;'>{subtitle2}</h1>", unsafe_allow_html=True)
 
-subtitle4="CrowdFeel extract sentiments and emotions from the tweets from the last 7 days. With help of a Deep Learning model trained in more than 1.6M tweets, we are able to predict the mood of the user behinfd the tweet."
+subtitle4="CrowdFeel extract sentiments and emotions from the tweets of the last 7 days. With help of a Deep Learning model, we are able to predict the mood of the user behind the tweet."
 
 st.markdown(f"<h1 style='text-align: center;font-size: 28px;'>{subtitle4}</h1>", unsafe_allow_html=True)
 
-c=st.empty()
-c.write(' ')
 c=st.empty()
 c.write(' ')
 
@@ -62,10 +51,6 @@ c.write(' ')
 subtitle3="About us 👥 "
 
 st.markdown(f"<h1 style='text-align: center;font-size: 45px;'>{subtitle3}</h1>", unsafe_allow_html=True)
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
 c=st.empty()
 c.write(' ')
 col1, col2, col3, col4 = st.columns(4)
