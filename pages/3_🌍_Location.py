@@ -147,7 +147,13 @@ with st.form("search_form_emotions_location"):
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionsloc?distance={radius}&location={location}'
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
-                res=requests.get(url).json()
+                while failing:
+                    try:
+                        res=requests.get(url).json()
+                        failing=False
+                    except:
+                        pass
+
                 print(res)
                 emotions_totaldf=pd.DataFrame(np.array(res['emotions']))
                 tweet=res['tweet']
