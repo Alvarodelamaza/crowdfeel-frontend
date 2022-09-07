@@ -20,10 +20,9 @@ install_requirements:
 #         HEROKU COMMANDS
 # ----------------------------------
 
-streamlit:
-	-@streamlit run app.py
 
-streamlit2:
+
+streamlit:
 	-@streamlit run 🏡_Crowdfeel.py
 
 heroku_login:
