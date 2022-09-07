@@ -78,7 +78,10 @@ with st.form("search_form_sentiments_hashtag"):
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predicthas?hashtag={hashtag}'
             #Loading... spinner
             with st.spinner('Extracting sentimentss.. 😃😭🤬😳'):
-                res=requests.get(url).json()
+                try:
+                    res=requests.get(url).json()
+                except:
+                    st.warning('Sorry try it later', icon="⚠️")
                 happiness=np.round(res['happiness'],2)
                 tweet=res['tweet']
                 labels=res['label']
@@ -147,10 +150,15 @@ with st.form("search_form_emotions_hashtag"):
             st.write("Hashtag searched:  ", hashtag)
 
             # Call our API
+
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionshas?hashtag={hashtag}'
+
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
-                res=requests.get(url).json()
+                try:
+                    res=requests.get(url).json()
+                except:
+                    st.warning('Sorry try it later', icon="⚠️")
                 print(res)
                 emotions_totaldf=pd.DataFrame(np.array(res['emotions']))
                 tweet=res['tweet']
