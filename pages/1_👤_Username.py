@@ -29,20 +29,15 @@ st.image('banner.png')
 #Blank space
 c=st.empty()
 c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
 
 # Title and subtitle
-title=' Search by ＠Username '
-subtitle="Track someone's emotions through tweets 💬"
-st.markdown(f"<h1 style='text-align: center;font-size: 60px;color:#0B0500;'>{title}</h1>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;color:#0B0500;'>{subtitle}</h1>", unsafe_allow_html=True)
+title='Search by Twitter account '
+subtitle="The tool to extract sentiments from @username "
+subtitle_1="Extract sentiments...    ✅ vs. ❌"
+subtitle_2="Extract emotions like: "
+subtitle_3="😃 Happiness, 🤬 Hate, 😍 Love, 😐 Neutrality, 😭 Sadness, 😲 Surprise or 😱 Worry "
+st.markdown(f"<h1 style='text-align: center;font-size: 60px;color :#0B0500;'>{title}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle}</h1>", unsafe_allow_html=True)
 
 c=st.empty()
 c.write(' ')
@@ -64,6 +59,13 @@ with tab1:
     c=st.empty()
     c.write(' ')
     with st.form("search_form username"):
+
+# Search form hashtag
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_1}</h1>", unsafe_allow_html=True)
+
+# Location Form
+with st.form("search_form username"):
+
 
     # Date filter
     #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
@@ -247,6 +249,7 @@ with tab2:
     #date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
     #date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
 
+
         # Location filter
         st.markdown(f"<h1 style='text-align: center;font-size :color:#0B0500 ;'>Who was mentioned? 🕵🏻‍♂️</h1>", unsafe_allow_html=True)
         col2,col3, col4 = st.columns(3)
@@ -386,6 +389,25 @@ with tab2:
                 col1, col2 = st.columns(2)
 
                 # Column #1 with random tweets and their labels
+
+                colors=['#AAF683','#F74052']
+                fig, ax = plt.subplots()
+                ax.pie(emotions,labels=my_labels,colors=colors)
+                st.pyplot(fig)
+
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
+with st.form("search_form_emotions_username"):
+
+    # Hashtag filter
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Who? 🕵🏻‍♂️</h1>", unsafe_allow_html=True)
+    col1 , col3, col4 = st.columns(3)
+
+    col11, col21 , col23,col34, col31 = st.columns(5)
+    #timeline=col23.checkbox('Show timeline', value=False)
+    # Submit button
+    username=col3.text_input(''' Username''')
+
 
                 with st.expander(" See random Tweets"):
                     for twee, emotion in zip(tweet,emotions):

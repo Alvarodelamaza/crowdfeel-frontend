@@ -27,20 +27,15 @@ st.set_page_config(
 st.image('banner.png')
 
 
+
 #Blank space
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
-c=st.empty()
-c.write(' ')
 c=st.empty()
 c.write(' ')
 
 
 # Title and subtitle
-title='Search by #hashtag '
-subtitle="The tool to extract sentiments from a hashtag 💬"
+title='Search by trending topic '
+subtitle="The tool to extract sentiments from #hashtag"
 subtitle_1="Extract sentiments...    ✅ vs. ❌"
 subtitle_2="Extract emotions like: "
 subtitle_3="😃 Happiness, 🤬 Hate, 😍 Love, 😐 Neutrality, 😭 Sadness, 😲 Surprise or 😱 Worry "
