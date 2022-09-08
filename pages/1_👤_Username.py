@@ -110,10 +110,10 @@ with tab1:
                     for label in labels:
                         if label==1:
                             label_text.append('✅ Positive')
-                            color.append('Green')
+                            color.append('#AAF683')
                         else:
                             label_text.append('❌ Negative')
-                            color.append('Red')
+                            color.append('#F74052')
 
                     #Write the main result
                     f''' ## The level of happiness for **{username}** is {happiness}%  {emojy}'''
@@ -137,7 +137,7 @@ with tab1:
 
                         # Pie chart
                         emotions=np.array([happiness,100-happiness])
-                        my_labels=['Happy 😃','Sad 😭']
+                        my_labels=['Positive','Negative']
 
                         colors=['#AAF683','#F74052']
                         fig, ax = plt.subplots()
@@ -287,10 +287,10 @@ with tab2:
                 for label in labels:
                     if label==1:
                         label_text.append('✅ Positive')
-                        color.append('Green')
+                        color.append('#AAF683')
                     else:
                         label_text.append('❌ Negative')
-                        color.append('Red')
+                        color.append('#F74052')
 
                 #Write the main result
                 f''' ## The level of happiness for **{username}** is {happiness}%  {emojy}'''
@@ -302,7 +302,7 @@ with tab2:
                     with st.expander(" See random Tweets"):
                         for twee , label, color in zip(tweet,label_text,color):
                             text=f'''{twee} ......is <strong>{label}</strong>'''.replace("\n","")
-                            text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color};; font-size: 20px; border-radius: 25px; border: 2px solid ; padding: 20px;">{text}</p>'
+                            text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px; border: 2px solid ; padding: 20px;">{text}</p>'
                             st.markdown(text_html, unsafe_allow_html=True)
 
                 #Column #2 with charts
@@ -314,7 +314,7 @@ with tab2:
 
                     # Pie chart
                     emotions=np.array([happiness,100-happiness])
-                    my_labels=['Happy 😃','Sad 😭']
+                    my_labels=['Positive','Negative']
 
                     colors=['#AAF683','#F74052']
                     fig, ax = plt.subplots()

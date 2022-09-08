@@ -51,7 +51,7 @@ c=st.empty()
 c.write(' ')
 subtitle_1="Extract sentiments...    ✅ vs. ❌"
 subtitle_2="Extract emotions like: "
-subtitle_3="😃 Happiness, 🤬 Hate, 😍 Love, 😐 Neutrality, 😭 Sadness, 😲 Surprise or 😱 Worry "
+subtitle_3="😃 Happiness, 🤬 Hate, 😍 Love, 😐 Neutral, 😭 Sadness, 😲 Surprise or 😱 Worry "
 st.markdown(' ----')
 
 # Location Form
@@ -73,7 +73,7 @@ with st.form("search_form_location"):
     # Submit button
     col11, col21 , col23,col34, col31 = st.columns(5)
 
-    submitted = col23.form_submit_button("Extract Sentiments from <strong>location</strong> 🌍")
+    submitted = col23.form_submit_button("Extract Sentiments from location 🌍")
     if submitted:
             # Print search filters
             st.write("Location:", location, ",radius:", radius)
@@ -131,19 +131,21 @@ with st.form("search_form_location"):
                         text_html = f'<p style="font-family:sans-serif;box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px;border: 2px solid; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
+
             #Column #2 with charts
             with col2:
 
                 #Line timeline chart
-                y=res1['mean_day'].items()
-                st.line_chart(pd.DataFrame(data=y,columns=['Day','Happiness']).set_index('Day'))
+                #y=res1['mean_day'].items()
+                #st.line_chart(pd.DataFrame(data=y,columns=['Day','Happiness']).set_index('Day'))
 
                 # Pie chart
                 emotions=np.array([happiness,100-happiness])
-                my_labels=['Happy 😃','Sad 😭']
+                my_labels=['Positive','Negative']
                 colors=['#AAF683','#F74052']
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
+                st.pyplot(fig)
 
 st.markdown(' ----')
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
@@ -204,11 +206,7 @@ with st.form("search_form_emotions_location"):
             print(sentence_dictionary)
             word_df=pd.DataFrame(sentence_dictionary)
             # Bar chart
-            sns.set(font_scale=1.3)
-            colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
-            fig = plt.figure(figsize=(10, 4))
-            sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
-            st.pyplot(fig)
+
             with st.expander(" See random Tweets"):
                 for twee, emotion ,color in zip(tweet,emotions,colors):
                     text=f'''{twee} ......implies <strong>{emotion}</strong>'''.replace("\n","")
@@ -216,6 +214,11 @@ with st.form("search_form_emotions_location"):
                     st.markdown(text_html, unsafe_allow_html=True)
 
                 #Column #2 with charts
+            sns.set(font_scale=1.3)
+            colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
+            fig = plt.figure(figsize=(10, 4))
+            sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
+            st.pyplot(fig)
 
 
 

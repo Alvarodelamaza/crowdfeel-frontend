@@ -118,11 +118,9 @@ with st.form("search_form_sentiments_hashtag"):
 
             #Column #2 with charts
             with col2:
-
-
                 # Pie chart
                 emotions=np.array([happiness,100-happiness])
-                my_labels=['Happy 😃','Sad 😭']
+                my_labels=['Positive','Negative']
                 colors=['#AAF683','#F74052']
                 plt.figure(figsize=(2, 2))
                 fig, ax = plt.subplots()
