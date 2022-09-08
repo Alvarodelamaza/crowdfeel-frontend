@@ -13,7 +13,7 @@ import numpy as np
 # Page configuration
 st.set_page_config(
      page_title="CrowdFeel",
-     page_icon="favicon2.png",
+     page_icon="favicon.png",
      layout="wide",
      initial_sidebar_state="expanded",
      menu_items={
@@ -34,7 +34,7 @@ c.write(' ')
 
 
 # Title and subtitle
-title='Search by trending topic '
+title='<strong>Search by</strong> trending topic '
 subtitle="The tool to extract sentiments from #hashtag"
 subtitle_1="Extract sentiments...    ✅ vs. ❌"
 subtitle_2="Extract emotions like: "
@@ -47,12 +47,6 @@ c.write(' ')
 # Search form hashtag
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_1}</h1>", unsafe_allow_html=True)
 with st.form("search_form_sentiments_hashtag"):
-
-    # Date filter
-    #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
-    #col1, col2 = st.columns(2)
-    #date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
-    #date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
 
     # Hashtag filter
     st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>What? #️⃣</h1>", unsafe_allow_html=True)
@@ -118,17 +112,13 @@ with st.form("search_form_sentiments_hashtag"):
             with col1:
                 with st.expander(" See random Tweets"):
                     for twee , label, color in zip(tweet,label_text,color):
-                        text=f'''{twee} ......is {label}'''.replace("\n","")
-                        text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                        text=f'''{twee} ......is <strong>{label}</strong>'''.replace("\n","")
+                        text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color};; font-size: 20px; border-radius: 25px; border: 2px solid ; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
             #Column #2 with charts
             with col2:
 
-                #Line timeline chart
-                # if timeline:
-                #     y=res['mean_day'].items()
-                #     st.line_chart(pd.DataFrame(data=y,columns=['Day','Happiness']).set_index('Day'))
 
                 # Pie chart
                 emotions=np.array([happiness,100-happiness])
@@ -189,7 +179,7 @@ with st.form("search_form_emotions_hashtag"):
 
             with st.expander(" See random Tweets"):
                 for twee, emotion, color in zip(tweet,emotions,colors):
-                    text=f'''{twee} ......implies {emotion}'''.replace("\n","")
+                    text=f'''{twee} ......implies <strong>{emotion}</strong>'''.replace("\n","")
                     text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color};font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
                     st.markdown(text_html, unsafe_allow_html=True)
 

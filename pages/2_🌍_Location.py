@@ -13,7 +13,7 @@ import numpy as np
 # Page configuration
 st.set_page_config(
      page_title="CrowdFeel by Location",
-     page_icon="favicon2.png",
+     page_icon="favicon.png",
      layout="wide",
      initial_sidebar_state="collapsed",
      menu_items={
@@ -32,7 +32,7 @@ c=st.empty()
 c.write(' ')
 
 # Title and subtitle
-title='Search by market segment '
+title='<strong>Search by</strong> market segment '
 subtitle="The tool to extract sentiments from a location and a given radius 🌍"
 subtitle_1="Extract sentiments...    ✅ vs. ❌"
 subtitle_2="Extract emotions like: "
@@ -73,7 +73,7 @@ with st.form("search_form_location"):
     # Submit button
     col11, col21 , col23,col34, col31 = st.columns(5)
 
-    submitted = col23.form_submit_button("Extract Sentiments from location 🌍")
+    submitted = col23.form_submit_button("Extract Sentiments from <strong>location</strong> 🌍")
     if submitted:
             # Print search filters
             st.write("Location:", location, ",radius:", radius)
