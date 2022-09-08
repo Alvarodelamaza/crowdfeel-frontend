@@ -51,7 +51,12 @@ c=st.empty()
 c.write(' ')
 c=st.empty()
 c.write(' ')
+subtitle_1="Extract sentiments...    ✅ vs. ❌"
+subtitle_2="Extract emotions like: "
+subtitle_3="😃 Happiness, 🤬 Hate, 😍 Love, 😐 Neutrality, 😭 Sadness, 😲 Surprise or 😱 Worry "
+st.markdown(' ----')
 # Location Form
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_1}</h1>", unsafe_allow_html=True)
 with st.form("search_form_location"):
 
     # Date filter
@@ -77,13 +82,19 @@ with st.form("search_form_location"):
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictbeta?distance={radius}&location={location}'
 
            #Loading... spinner
-            with st.spinner('Extracting emotions... 😃😭🤬😳'):
+            with st.spinner('Extracting sentiments... 😃😭🤬😳'):
                 failing=True
+                message=True
+                sum=0
                 while failing:
+                    if sum>3 and message:
+                        st.info('This is taking longer that expected, please wait', icon="ℹ️")
+                        message=False
                     try:
                         res1=requests.get(url).json()
                         failing=False
                     except:
+                        sum+=1
                         pass
                 print('✅request made')
                 happiness=np.round(res1['happiness'],2)
@@ -135,8 +146,11 @@ with st.form("search_form_location"):
                 fig, ax = plt.subplots()
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
+st.markdown(' ----')
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
+st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
 with st.form("search_form_emotions_location"):
-    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? #️⃣</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Where? 🗺</h1>", unsafe_allow_html=True)
     col3, col4 = st.columns(2)
     location=col3.text_input(''' City''')
     radius=col4.slider('''Radius (km)''',min_value=1, max_value=50)
@@ -154,11 +168,17 @@ with st.form("search_form_emotions_location"):
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
                 failing=True
+                message=True
+                sum=0
                 while failing:
+                    if sum>3 and message:
+                        st.info('This is taking longer that expected, please wait', icon="ℹ️")
+                        message=False
                     try:
                         res=requests.get(url).json()
                         failing=False
                     except:
+                        sum+=1
                         pass
 
                 print(res)
@@ -169,15 +189,16 @@ with st.form("search_form_emotions_location"):
 
             emotions=np.array(emotionsdf[0].map({0.0:'Happiness 😃',1.0:'Hate 🤬',2.0:'Love 😍',3.0:'Neutral 😐',4.0:'Sadness 😭',5.0:'Surprise 😲',6.0:'Worry 😱'}))
             emotions_total=np.array(emotions_totaldf[0].map({0.0:'Happiness',1.0:'Hate',2.0:'Love',3.0:'Neutral',4.0:'Sadness',5.0:'Surprise',6.0:'Worry'}))
-
+            colors=np.array(pd.DataFrame(emotions)[0].map({'Happiness 😃':'#AAF683','Hate 🤬':'#F74052' ,'Love 😍':'#FF7738','Neutral 😐':'#FFD952','Sadness 😭':'#51CBDB','Surprise 😲':'#8312ED','Worry 😱':'#9FFFCB'}))
             col1, col2 = st.columns(2)
+            print(colors)
 
             # Column #1 with random tweets and their labels
 
             with st.expander(" See random Tweets"):
-                for twee, emotion in zip(tweet,emotions):
+                for twee, emotion ,color in zip(tweet,emotions,colors):
                     text=f'''{twee} implies {emotion}'''.replace("\n","")
-                    text_html = f'<p style="font-family:sans-serif; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
+                    text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
                     st.markdown(text_html, unsafe_allow_html=True)
 
             #Column #2 with charts

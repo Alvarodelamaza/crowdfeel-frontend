@@ -78,13 +78,19 @@ with st.form("search_form_sentiments_hashtag"):
             url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predicthas?hashtag={hashtag}'
             #Loading... spinner
 
-            with st.spinner('Extracting sentimentss.. 😃😭🤬😳'):
+            with st.spinner('Extracting sentiments.. 😃😭🤬😳'):
                 failing=True
+                message=True
+                sum=0
                 while failing:
+                    if sum>3 and message:
+                            st.info('This is taking longer that expected, please wait', icon="ℹ️")
+                            message=False
                     try:
                         res=requests.get(url).json()
                         failing=False
                     except:
+                        sum+=1
                         pass
                 happiness=np.round(res['happiness'],2)
                 tweet=res['tweet']
@@ -138,10 +144,9 @@ with st.form("search_form_sentiments_hashtag"):
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
 
-
-
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
 st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
+
 with st.form("search_form_emotions_hashtag"):
     st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>What? #️⃣</h1>", unsafe_allow_html=True)
     col1 , col3, col4 = st.columns(3)
@@ -162,12 +167,18 @@ with st.form("search_form_emotions_hashtag"):
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
                 failing=True
+                message=True
+                sum=0
                 while failing:
+                    if sum>3 and message:
+                            st.info('This is taking longer that expected, please wait', icon="ℹ️")
+                            message=False
                     try:
                         res=requests.get(url).json()
                         failing=False
                     except:
-                            pass
+                        sum+=1
+                        pass
                 print(res)
                 emotions_totaldf=pd.DataFrame(np.array(res['emotions']))
                 tweet=res['tweet']
