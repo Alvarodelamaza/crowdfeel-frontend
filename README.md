@@ -1,7 +1,3 @@
-new: https://crowfeelings.herokuapp.com/
-
-
-
-old: https://crowdfeeling.herokuapp.com/
+new: https://crowd-feel.herokuapp.com
 
 
