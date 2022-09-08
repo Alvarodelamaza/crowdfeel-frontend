@@ -58,101 +58,100 @@ with tab1:
     c.write(' ')
     c=st.empty()
     c.write(' ')
-    with st.form("search_form username"):
 
 # Search form hashtag
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_1}</h1>", unsafe_allow_html=True)
+    st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_1}</h1>", unsafe_allow_html=True)
 
-# Location Form
-with st.form("search_form username"):
+    # Location Form
+    with st.form("search_form username"):
 
 
-    # Date filter
-    #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
-    #col1, col2 = st.columns(2)
-    #date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
-    #date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
+        # Date filter
+        #st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>When? 📆</h1>", unsafe_allow_html=True)
+        #col1, col2 = st.columns(2)
+        #date_start = col1.date_input(' From...', value=datetime.datetime(2022, 8, 1, 12, 10, 20))
+        #date_finish = col2.date_input(' ...to', value=datetime.datetime(2022, 8, 31, 12, 10, 20))
 
-    # Location filter
-        st.markdown(f"<h1 style='text-align: center;font-size:color:#0B0500 30px;'>Who posted? 🕵🏻‍♂️</h1>", unsafe_allow_html=True)
-        col2,col3, col4 = st.columns(3)
-        username=col3.text_input(''' Username''')
+        # Location filter
+            st.markdown(f"<h1 style='text-align: center;font-size:color:#0B0500 30px;'>Who posted? 🕵🏻‍♂️</h1>", unsafe_allow_html=True)
+            col2,col3, col4 = st.columns(3)
+            username=col3.text_input(''' Username''')
 
-        # Submit button
-        col11, col21 , col23,col34, col31 = st.columns(5)
+            # Submit button
+            col11, col21 , col23,col34, col31 = st.columns(5)
 
-        submitted = col23.form_submit_button("Extract Sentiments from Twitter user ＠")
-        if submitted:
-                # Print search filters
-                st.write("Username:", username)
-                # Call our API
-                url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictacc?account={username}'
-            #Loading... spinner
-                with st.spinner('Extracting emotions... 😃😭🤬😳'):
-                    failing=True
-                    message=True
-                    sum=0
-                    while failing:
-                        if sum>3 and message:
-                            st.info('This is taking longer that expected, please wait', icon="ℹ️")
-                            message=False
-                        try:
-                            res1=requests.get(url).json()
-                            failing=False
-                        except:
-                            sum+=1
-                            pass
-                    print('✅request made')
-                    happiness=np.round(res1['happiness' ],2)
-                    tweet=res1['tweet']
-                    labels=res1['label']
-                st.success('Sentiments extracted succesfully!',icon='✅')
+            submitted = col23.form_submit_button("Extract Sentiments from Twitter user ＠")
+            if submitted:
+                    # Print search filters
+                    st.write("Username:", username)
+                    # Call our API
+                    url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictacc?account={username}'
+                #Loading... spinner
+                    with st.spinner('Extracting emotions... 😃😭🤬😳'):
+                        failing=True
+                        message=True
+                        sum=0
+                        while failing:
+                            if sum>3 and message:
+                                st.info('This is taking longer that expected, please wait', icon="ℹ️")
+                                message=False
+                            try:
+                                res1=requests.get(url).json()
+                                failing=False
+                            except:
+                                sum+=1
+                                pass
+                        print('✅request made')
+                        happiness=np.round(res1['happiness' ],2)
+                        tweet=res1['tweet']
+                        labels=res1['label']
+                    st.success('Sentiments extracted succesfully!',icon='✅')
 
-                # Set the emojys
-                if happiness >50:
-                    emojy='😃'
-                else:
-                    emojy='😭'
-
-                #Change color and label depending on prediction
-                label_text=[]
-                color=[]
-                for label in labels:
-                    if label==1:
-                        label_text.append('✅ Positive')
-                        color.append('Green')
+                    # Set the emojys
+                    if happiness >50:
+                        emojy='😃'
                     else:
-                        label_text.append('❌ Negative')
-                        color.append('Red')
+                        emojy='😭'
 
-                #Write the main result
-                f''' ## The level of happiness for **{username}** is {happiness}%  {emojy}'''
+                    #Change color and label depending on prediction
+                    label_text=[]
+                    color=[]
+                    for label in labels:
+                        if label==1:
+                            label_text.append('✅ Positive')
+                            color.append('Green')
+                        else:
+                            label_text.append('❌ Negative')
+                            color.append('Red')
 
-                col1, col2 = st.columns(2)
+                    #Write the main result
+                    f''' ## The level of happiness for **{username}** is {happiness}%  {emojy}'''
 
-                # Column #1 with random tweets and their labels
-                with col1:
-                    with st.expander(" See random Tweets"):
-                        for twee , label, color in zip(tweet,label_text,color):
-                            text=f'''{twee} is {label}'''.replace("\n","")
-                            text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
-                            st.markdown(text_html, unsafe_allow_html=True)
+                    col1, col2 = st.columns(2)
 
-                #Column #2 with charts
-                with col2:
+                    # Column #1 with random tweets and their labels
+                    with col1:
+                        with st.expander(" See random Tweets"):
+                            for twee , label, color in zip(tweet,label_text,color):
+                                text=f'''{twee} is {label}'''.replace("\n","")
+                                text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                                st.markdown(text_html, unsafe_allow_html=True)
 
-                    #Line timeline chart
-                    y=res1['mean_day'].items()
-                    st.line_chart(pd.DataFrame(data=y,columns=['Day','happiness']).set_index('Day'))
+                    #Column #2 with charts
+                    with col2:
 
-                    # Pie chart
-                    emotions=np.array([happiness,100-happiness])
-                    my_labels=['Happy 😃','Sad 😭']
+                        #Line timeline chart
+                        y=res1['mean_day'].items()
+                        st.line_chart(pd.DataFrame(data=y,columns=['Day','happiness']).set_index('Day'))
 
-                    colors=['#AAF683','#F74052']
-                    fig, ax = plt.subplots()
-                    ax.pie(emotions,labels=my_labels,colors=colors)
-                    st.pyplot(fig)
+                        # Pie chart
+                        emotions=np.array([happiness,100-happiness])
+                        my_labels=['Happy 😃','Sad 😭']
+
+                        colors=['#AAF683','#F74052']
+                        fig, ax = plt.subplots()
+                        ax.pie(emotions,labels=my_labels,colors=colors)
+                        st.pyplot(fig)
     st.markdown(' ----')
     st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
     c=st.empty()
@@ -330,15 +329,15 @@ with tab2:
                     fig, ax = plt.subplots()
                     ax.pie(emotions,labels=my_labels,colors=colors)
                     st.pyplot(fig)
-    st.markdown(' ----')
-    st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
-    c=st.empty()
-    c.write(' ')
-    st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
-    c=st.empty()
-    c.write(' ')
-    c=st.empty()
-    c.write(' ')
+        st.markdown(' ----')
+        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
+        c=st.empty()
+        c.write(' ')
+        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
+        c=st.empty()
+        c.write(' ')
+        c=st.empty()
+        c.write(' ')
 
 
     with st.form("search_form_emotions_username_mentioned"):
@@ -395,43 +394,9 @@ with tab2:
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
 
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
-st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
-with st.form("search_form_emotions_username"):
+        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
+        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
 
-    # Hashtag filter
-    st.markdown(f"<h1 style='text-align: center;font-size: 30px;'>Who? 🕵🏻‍♂️</h1>", unsafe_allow_html=True)
-    col1 , col3, col4 = st.columns(3)
-
-    col11, col21 , col23,col34, col31 = st.columns(5)
-    #timeline=col23.checkbox('Show timeline', value=False)
-    # Submit button
-    username=col3.text_input(''' Username''')
-
-
-                with st.expander(" See random Tweets"):
-                    for twee, emotion in zip(tweet,emotions):
-                        text=f'''{twee} implies {emotion}'''.replace("\n","")
-                        text_html = f'<p style="font-family:sans-serif; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
-                        st.markdown(text_html, unsafe_allow_html=True)
-
-                #Column #2 with charts
-
-                sentence_dictionary = {}
-                word_counts = 0
-                for item in emotions_total:
-                    if item in sentence_dictionary:
-                        sentence_dictionary[item][0] += 1
-                    else:
-                        sentence_dictionary[item] = [1]
-                print(sentence_dictionary)
-                word_df=pd.DataFrame(sentence_dictionary)
-                # Bar chart
-                sns.set(font_scale=1.3)
-                colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
-                fig = plt.figure(figsize=(10, 4))
-                sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
-                st.pyplot(fig)
 
 
 
