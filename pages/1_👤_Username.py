@@ -58,10 +58,6 @@ with tab1:
     c.write(' ')
     c=st.empty()
     c.write(' ')
-
-# Search form hashtag
-    st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_1}</h1>", unsafe_allow_html=True)
-
     # Location Form
     with st.form("search_form username"):
 
@@ -329,15 +325,15 @@ with tab2:
                     fig, ax = plt.subplots()
                     ax.pie(emotions,labels=my_labels,colors=colors)
                     st.pyplot(fig)
-        st.markdown(' ----')
-        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
-        c=st.empty()
-        c.write(' ')
-        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
-        c=st.empty()
-        c.write(' ')
-        c=st.empty()
-        c.write(' ')
+    st.markdown(' ----')
+    st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
+    c=st.empty()
+    c.write(' ')
+    st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
+    c=st.empty()
+    c.write(' ')
+    c=st.empty()
+    c.write(' ')
 
 
     with st.form("search_form_emotions_username_mentioned"):
@@ -394,8 +390,7 @@ with tab2:
                 ax.pie(emotions,labels=my_labels,colors=colors)
                 st.pyplot(fig)
 
-        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_2}</h1>", unsafe_allow_html=True)
-        st.markdown(f"<h1 style='text-align: center;font-size: 35px;color: #0B0500';>{subtitle_3}</h1>", unsafe_allow_html=True)
+
 
 
 
