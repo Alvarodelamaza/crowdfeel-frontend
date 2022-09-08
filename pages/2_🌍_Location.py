@@ -113,10 +113,10 @@ with st.form("search_form_location"):
             for label in labels:
                 if label==1:
                     label_text.append('✅ Positive')
-                    color.append('Green')
+                    color.append('#AAF683')
                 else:
                     label_text.append('❌ Negative')
-                    color.append('Red')
+                    color.append('#F74052')
 
             #Write the main result
             f''' ## The level of happiness in **{location}** is {happiness}%  {emojy}'''
@@ -127,8 +127,8 @@ with st.form("search_form_location"):
             with col1:
                 with st.expander(" See random Tweets"):
                     for twee , label, color in zip(tweet,label_text,color):
-                        text=f'''{twee} is {label}'''.replace("\n","")
-                        text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                        text=f'''{twee} ......is <strong>{label}</strong>'''.replace("\n","")
+                        text_html = f'<p style="font-family:sans-serif;box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px;border: 2px solid; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
             #Column #2 with charts
@@ -194,15 +194,6 @@ with st.form("search_form_emotions_location"):
             print(colors)
 
             # Column #1 with random tweets and their labels
-
-            with st.expander(" See random Tweets"):
-                for twee, emotion ,color in zip(tweet,emotions,colors):
-                    text=f'''{twee} implies {emotion}'''.replace("\n","")
-                    text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
-                    st.markdown(text_html, unsafe_allow_html=True)
-
-            #Column #2 with charts
-
             sentence_dictionary = {}
             word_counts = 0
             for item in emotions_total:
@@ -218,6 +209,15 @@ with st.form("search_form_emotions_location"):
             fig = plt.figure(figsize=(10, 4))
             sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
             st.pyplot(fig)
+            with st.expander(" See random Tweets"):
+                for twee, emotion ,color in zip(tweet,emotions,colors):
+                    text=f'''{twee} ......implies <strong>{emotion}</strong>'''.replace("\n","")
+                    text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
+                    st.markdown(text_html, unsafe_allow_html=True)
+
+                #Column #2 with charts
+
+
 
 c=st.empty()
 c.write(' ')

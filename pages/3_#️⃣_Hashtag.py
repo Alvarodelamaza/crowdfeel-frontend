@@ -118,7 +118,7 @@ with st.form("search_form_sentiments_hashtag"):
             with col1:
                 with st.expander(" See random Tweets"):
                     for twee , label, color in zip(tweet,label_text,color):
-                        text=f'''{twee} is {label}'''.replace("\n","")
+                        text=f'''{twee} ......is {label}'''.replace("\n","")
                         text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
@@ -182,15 +182,15 @@ with st.form("search_form_emotions_hashtag"):
 
             emotions=np.array(emotionsdf[0].map({0.0:'Happiness 😃',1.0:'Hate 🤬',2.0:'Love 😍',3.0:'Neutral 😐',4.0:'Sadness 😭',5.0:'Surprise 😲',6.0:'Worry 😱'}))
             emotions_total=np.array(emotions_totaldf[0].map({0.0:'Happiness',1.0:'Hate',2.0:'Love',3.0:'Neutral',4.0:'Sadness',5.0:'Surprise',6.0:'Worry'}))
-
+            colors=np.array(pd.DataFrame(emotions)[0].map({'Happiness 😃':'#AAF683','Hate 🤬':'#F74052' ,'Love 😍':'#FF7738','Neutral 😐':'#FFD952','Sadness 😭':'#51CBDB','Surprise 😲':'#8312ED','Worry 😱':'#9FFFCB'}))
             col1, col2 = st.columns(2)
 
             # Column #1 with random tweets and their labels
 
             with st.expander(" See random Tweets"):
-                for twee, emotion in zip(tweet,emotions):
-                    text=f'''{twee} implies {emotion}'''.replace("\n","")
-                    text_html = f'<p style="font-family:sans-serif; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
+                for twee, emotion, color in zip(tweet,emotions,colors):
+                    text=f'''{twee} ......implies {emotion}'''.replace("\n","")
+                    text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color};font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
                     st.markdown(text_html, unsafe_allow_html=True)
 
             #Column #2 with charts
