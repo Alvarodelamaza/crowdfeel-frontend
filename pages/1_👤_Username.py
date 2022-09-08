@@ -13,7 +13,7 @@ import numpy as np
 # Page configuration
 st.set_page_config(
      page_title="CrowdFeel by Username",
-     page_icon="favicon2.png",
+     page_icon="favicon.png",
      layout="wide",
      initial_sidebar_state="expanded",
      menu_items={
@@ -31,7 +31,7 @@ c=st.empty()
 c.write(' ')
 
 # Title and subtitle
-title='Search by Twitter account '
+title='<strong>Search by</strong> Twitter account '
 subtitle="The tool to extract sentiments from @username "
 subtitle_1="Extract sentiments...    ✅ vs. ❌"
 subtitle_2="Extract emotions like: "
@@ -45,11 +45,6 @@ c=st.empty()
 c.write(' ')
 c=st.empty()
 c.write(' ')
-
-subtitle_1="Extract sentiments...    ✅ vs. ❌"
-subtitle_2="Extract emotions like: "
-subtitle_3="😃 Happiness, 🤬 Hate, 😍 Love, 😐 Neutrality, 😭 Sadness, 😲 Surprise or 😱 Worry "
-
 
 tab1, tab2= st.tabs(["@ Posted by", "@ Mentioned"])
 with tab1:
@@ -130,7 +125,7 @@ with tab1:
                         with st.expander(" See random Tweets"):
                             for twee , label, color in zip(tweet,label_text,color):
                                 text=f'''{twee} ......is <strong>{label}</strong>'''.replace("\n","")
-                                text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                                text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color};; font-size: 20px; border-radius: 25px; border: 2px solid ; padding: 20px;">{text}</p>'
                                 st.markdown(text_html, unsafe_allow_html=True)
 
                     #Column #2 with charts
@@ -306,8 +301,8 @@ with tab2:
                 with col1:
                     with st.expander(" See random Tweets"):
                         for twee , label, color in zip(tweet,label_text,color):
-                            text=f'''{twee} ......is {label}'''.replace("\n","")
-                            text_html = f'<p style="font-family:sans-serif; color:{color}; font-size: 20px; border-radius: 25px; border: 2px solid {color}; padding: 20px;">{text}</p>'
+                            text=f'''{twee} ......is <strong>{label}</strong>'''.replace("\n","")
+                            text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color};; font-size: 20px; border-radius: 25px; border: 2px solid ; padding: 20px;">{text}</p>'
                             st.markdown(text_html, unsafe_allow_html=True)
 
                 #Column #2 with charts
@@ -385,8 +380,8 @@ with tab2:
 
                 with st.expander(" See random Tweets"):
                     for twee, emotion ,color in zip(tweet,emotions,colors):
-                        text=f'''{twee} ......implies {emotion}'''.replace("\n","")
-                        text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color}; box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
+                        text=f'''{twee} ......implies <strong>{emotion}</strong>'''.replace("\n","")
+                        text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
                         st.markdown(text_html, unsafe_allow_html=True)
 
             #Column #2 with charts
