@@ -201,23 +201,23 @@ with st.form("search_form_emotions_location"):
                     text_html = f'<p style="font-family:sans-serif; box-shadow: 0px 10px {color}; font-size: 20px; border-radius: 25px; border: 2px solid; padding: 20px;">{text}</p>'
                     st.markdown(text_html, unsafe_allow_html=True)
 
-            #Column #2 with charts
+                #Column #2 with charts
 
-            sentence_dictionary = {}
-            word_counts = 0
-            for item in emotions_total:
-                if item in sentence_dictionary:
-                    sentence_dictionary[item][0] += 1
-                else:
-                    sentence_dictionary[item] = [1]
-            print(sentence_dictionary)
-            word_df=pd.DataFrame(sentence_dictionary)
-            # Bar chart
-            sns.set(font_scale=1.3)
-            colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
-            fig = plt.figure(figsize=(10, 4))
-            sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
-            st.pyplot(fig)
+                sentence_dictionary = {}
+                word_counts = 0
+                for item in emotions_total:
+                    if item in sentence_dictionary:
+                        sentence_dictionary[item][0] += 1
+                    else:
+                        sentence_dictionary[item] = [1]
+                print(sentence_dictionary)
+                word_df=pd.DataFrame(sentence_dictionary)
+                # Bar chart
+                sns.set(font_scale=1.3)
+                colors={'Happiness':'#AAF683','Hate':'#F74052' ,'Love':'#FF7738','Neutral':'#FFD952','Sadness':'#51CBDB','Surprise':'#8312ED','Worry':'#9FFFCB'}
+                fig = plt.figure(figsize=(10, 4))
+                sns.barplot(x=word_df.columns,y=word_df.values[0],palette=colors)
+                st.pyplot(fig)
 
 c=st.empty()
 c.write(' ')
