@@ -64,7 +64,7 @@ with st.form("search_form_sentiments_hashtag"):
             st.write("Hashtag searched:  ", hashtag)
 
             # Call our API
-            url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predicthas?hashtag={hashtag}'
+            url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predicthas?hashtag={hashtag}'
             #Loading... spinner
 
             with st.spinner('Extracting sentiments.. 😃😭🤬😳'):
@@ -145,7 +145,7 @@ with st.form("search_form_emotions_hashtag"):
 
             # Call our API
 
-            url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionshas?hashtag={hashtag}'
+            url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predictemotionshas?hashtag={hashtag}'
 
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):

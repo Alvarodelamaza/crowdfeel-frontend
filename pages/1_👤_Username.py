@@ -76,7 +76,7 @@ with tab1:
                     # Print search filters
                     st.write("Username:", username)
                     # Call our API
-                    url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictacc?account={username}'
+                    url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predictacc?account={username}'
                 #Loading... spinner
                     with st.spinner('Extracting emotions... 😃😭🤬😳'):
                         failing=True
@@ -172,7 +172,8 @@ with tab1:
                 # Print search filters
                 st.write("Username searched:  ", username)
                 # Call our API
-                url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionsacc?account={username}'
+                url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predictemotionsacc?account={username}'
+
                 #Loading... spinner
                 with st.spinner('Extracting emotions... 😃😭🤬😳'):
                     failing=True
@@ -253,7 +254,7 @@ with tab2:
                 # Print search filters
                 st.write("Username:", username)
                 # Call our API
-                url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictaccmen?account={username}'
+                url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predictaccmen?account={username}'
                 #Loading... spinner
                 with st.spinner('Extracting emotions... 😃😭🤬😳'):
                     failing=True
@@ -351,7 +352,7 @@ with tab2:
                 # Print search filters
                 st.write("Username searched:  ", username)
                 # Call our API
-                url=f'https://crowfeel-img-h5bk6vemiq-ez.a.run.app/predictemotionsmen?account={username}'
+                url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predictemotionsmen?account={username}'
                 #Loading... spinner
                 with st.spinner('Extracting emotions... 😃😭🤬😳'):
                     failing=True
