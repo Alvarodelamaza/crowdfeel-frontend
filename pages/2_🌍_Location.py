@@ -78,7 +78,7 @@ with st.form("search_form_location"):
             # Print search filters
             st.write("Location:", location, ",radius:", radius)
             # Call our API
-            url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predictbeta?distance={radius}&location={location}'
+            url=f'https://crowdfeel2-aycs3tpjsq-ez.a.run.app/predictbeta?distance={radius}&location={location}'
 
            #Loading... spinner
             with st.spinner('Extracting sentiments... 😃😭🤬😳'):
@@ -166,7 +166,7 @@ with st.form("search_form_emotions_location"):
             st.write("City searched:  ", location)
 
             # Call our API
-            url=f'https://crowdfeel-aycs3tpjsq-uc.a.run.app/predictemotionsloc?distance={radius}&location={location}'
+            url=f'https://crowdfeel2-aycs3tpjsq-ez.a.run.app/predictemotionsloc?distance={radius}&location={location}'
             #Loading... spinner
             with st.spinner('Extracting emotions... 😃😭🤬😳'):
                 failing=True
