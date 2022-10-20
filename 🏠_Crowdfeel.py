@@ -17,9 +17,11 @@ st.set_page_config(
      layout="wide",
      initial_sidebar_state="expanded",
      menu_items={
-         'Get Help': 'https://github.com/Alvarodelamaza/crowdfeel',
-         'Report a bug': "https://github.com/Alvarodelamaza/crowdfeel",
-         'About': "## Population sentiment analysis using tweets \n Bootcamp project developed by: \n Alvaro de la Maza, Angelo Darriet, Beauregard Sangkala and Tjebbe Lodeizen"
+         'Get Help': 'https://twitter.com/crowdfeel',
+        'Reach Out': 'https://linkedin.com/crowdfeel',
+         'Report a bug': "https://github.com/crowdfeel",
+         'Tag us': "https://instagram.com/crowdfeel",
+         'About': "## Population sentiment analysis using tweets \n project developed by: \n Alvaro de la Maza, Angelo Darriet and Tjebbe Lodeizen"
      }
  )
 
